@@ -38,4 +38,11 @@
     <string name="dialog_fragment_save">save</string>
     <string name="dialog_fragment_cancel">cancel</string>
 
+    <!--filter dialog fragment-->
+    <string name="filter_title">Select sorting</string>
+    <string name="sort_by_id">Sort by id</string>
+    <string name="sort_by_name">Sort by name</string>
+    <string name="sort_by_age">Sort by age</string>
+    <string name="sort_by_breed">Sort by breed</string>
+
 </resources>
