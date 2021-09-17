@@ -1,4 +1,4 @@
-package com.example.databasetask2021_v2
+package com.example.databasetask_2021_v2
 
 import org.junit.Test
 

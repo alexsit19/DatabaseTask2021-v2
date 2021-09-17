@@ -1,0 +1,12 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+        <ListPreference
+            android:entries="@array/keys"
+            android:entryValues="@array/values"
+            android:key="list"
+            android:title="@string/list_title"
+            android:dialogTitle="@string/dialog_title"
+            android:summary="%s"
+            app:useSimpleSummaryProvider="true">
+        </ListPreference>
+</PreferenceScreen>
