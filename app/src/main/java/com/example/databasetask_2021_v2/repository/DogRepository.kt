@@ -14,7 +14,9 @@ class DogRepository(private val dogsDao: DogsDao): DogsDao by dogsDao {
 
     val listeners = mutableSetOf<Dog>()
 
-    override fun getAll(): Flow<List<Dog>> = dogsDao.getAll()
+    override fun getAll(sortBy: String): Flow<List<Dog>> = dogsDao.getAll(sortBy)
+
+    override fun getSortByName(): Flow<List<Dog>> = dogsDao.getSortByName()
 
     suspend fun save(dog: Dog) = dogsDao.add(dog)
 

@@ -6,6 +6,7 @@ import com.example.databasetask_2021_v2.repository.*
 import com.example.databasetask_2021_v2.repository.room.Dog
 import com.example.databasetask_2021_v2.repository.room.DogsDao
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flow
 
 class DogDatabaseHandler(private val context: Context): DogsDao {
@@ -16,7 +17,12 @@ class DogDatabaseHandler(private val context: Context): DogsDao {
         return DogDatabaseHandler(context)
     }
 
-    override fun getAll(): Flow<List<Dog>> {
+    override fun getSortByName(): Flow<List<Dog>> {
+        val list = listOf<List<Dog>>()
+        return list.asFlow()
+    }
+
+    override fun getAll(sortBy: String): Flow<List<Dog>> {
         Log.d("DEBUG", "GET ALL DB HANDLER")
         return flow {
             val listOfDogs = mutableListOf<Dog>()

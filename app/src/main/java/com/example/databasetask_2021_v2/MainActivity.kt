@@ -11,7 +11,7 @@ import com.example.databasetask_2021_v2.databinding.ActivityMainBinding
 import com.example.databasetask_2021_v2.repository.room.Dog
 import com.example.databasetask_2021_v2.ui.*
 
-class MainActivity : AppCompatActivity(), DialogListener {
+class MainActivity : AppCompatActivity(), DialogListener, FilterListener {
 
     private var _binding: ActivityMainBinding? = null
     private val binding get() = requireNotNull(_binding)
@@ -48,6 +48,8 @@ class MainActivity : AppCompatActivity(), DialogListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_filter -> {
+                val filterDialog = FilterDialogFragment()
+                filterDialog.show(supportFragmentManager, "FilterDialogFragment")
                 Log.d("DEBUG", "filter click")
                 true
             }
@@ -88,5 +90,10 @@ class MainActivity : AppCompatActivity(), DialogListener {
 
     override fun update(dog: Dog) {
         viewModel.update(dog)
+    }
+
+    override fun getDataSortBy(sortBy: String) {
+        viewModel.getDataSortedBy(sortBy)
+        Log.d("DEBUG", "FilterString: $sortBy")
     }
 }

@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -17,6 +19,8 @@ import com.example.databasetask_2021_v2.DogApplication
 import com.example.databasetask_2021_v2.databinding.RecyclerviewFragmentBinding
 import com.example.databasetask_2021_v2.repository.room.Dog
 import com.example.databasetask_2021_v2.ui.adapter.DogListAdapter
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.shareIn
 
 
 class RecyclerViewFragment: Fragment(), DogItemListener {
@@ -24,7 +28,7 @@ class RecyclerViewFragment: Fragment(), DogItemListener {
     private var adapter: DogListAdapter? = null
     private var _binding: RecyclerviewFragmentBinding? = null
     private val binding get() = requireNotNull(_binding)
-    private val dogsViewModel: DogViewModel by viewModels {
+    private val dogsViewModel: DogViewModel by activityViewModels {
         DogViewModelFactory((activity?.application as DogApplication).getRepository())
     }
 
@@ -46,14 +50,12 @@ class RecyclerViewFragment: Fragment(), DogItemListener {
         Log.d("DEBUG", "FROM FRAGMENT $settingsString")
         //dogsViewModel.changeIsRoom(settingsString)
 
-
         adapter = DogListAdapter(this)
 
         binding.recycler.layoutManager = LinearLayoutManager(requireActivity())
         binding.recycler.adapter = adapter
 
-        dogsViewModel.alldogs.onEach(::renderDogs).launchIn(lifecycleScope)
-
+        dogsViewModel.dogs.onEach(::renderDogs).launchIn(lifecycleScope)
 
     }
 
