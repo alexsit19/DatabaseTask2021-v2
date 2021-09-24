@@ -48,4 +48,8 @@ class FilterDialogFragment: DialogFragment() {
         _binding = null
     }
 
+    companion object {
+        const val TAG = "FilterDialogFragment"
+    }
+
 }

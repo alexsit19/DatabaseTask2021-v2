@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), DialogListener, FilterListener {
 
         binding.fab.setOnClickListener {
             val dialog = AddDogDialogFragment(isAddDog = true)
-            dialog.show(supportFragmentManager, "DialogFragment")
+            dialog.show(supportFragmentManager, AddDogDialogFragment.TAG)
         }
 
         startRecyclerViewFragment()
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(), DialogListener, FilterListener {
         return when (item.itemId) {
             R.id.action_filter -> {
                 val filterDialog = FilterDialogFragment()
-                filterDialog.show(supportFragmentManager, "FilterDialogFragment")
+                filterDialog.show(supportFragmentManager, FilterDialogFragment.TAG)
                 Log.d("DEBUG", "filter click")
                 true
             }

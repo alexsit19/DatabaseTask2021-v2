@@ -115,4 +115,8 @@ class AddDogDialogFragment(
         _binding = null
         Log.d("DEBUG", "ON DESTROY")
     }
+
+    companion object {
+        const val TAG = "DialogFragment"
+    }
 }
