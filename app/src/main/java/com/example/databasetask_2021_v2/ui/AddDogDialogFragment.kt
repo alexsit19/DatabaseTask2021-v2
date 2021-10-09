@@ -7,7 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import com.example.databasetask_2021_v2.R
+import com.example.databasetask_2021_v2.BusinessLogic.AddDialogFragmentLogic
 import com.example.databasetask_2021_v2.databinding.DialogFragmentAddDogBinding
 import com.example.databasetask_2021_v2.repository.room.Dog
 
@@ -16,6 +16,7 @@ class AddDogDialogFragment(
     private val dog: Dog? = null
 ) : DialogFragment() {
 
+    private val businessLogic = AddDialogFragmentLogic(dog, isAddDog)
     private var _binding: DialogFragmentAddDogBinding? = null
     private val binding get() = requireNotNull(_binding)
     private var listener: DialogListener? = null
@@ -33,38 +34,27 @@ class AddDogDialogFragment(
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         _binding = DialogFragmentAddDogBinding.inflate(LayoutInflater.from(context))
         val builder = AlertDialog.Builder(requireContext())
-                .setView(binding.root)
+            .setView(binding.root)
 
-        if (isAddDog) {
-            binding.title.text = getString(R.string.add_dog_title)
-        } else {
-            binding.title.text = getString(R.string.update_dog_title)
-            if (dog != null) {
-                binding.dfNameEt.setText(dog.name)
-                binding.dfAgeEt.setText(dog.age.toString())
-                binding.dfBreedEt.setText(dog.breed)
-            }
-        }
+        binding.title.text = getString(businessLogic.getTitleId())
+
+        setDogFieldsInEditText()
 
         binding.dfSaveBtn.setOnClickListener {
-            if (checkSetErrorMessages()) {
+            val errorMessage = businessLogic.getErrorMessage(
+                name = binding.dfNameEt.text.toString(),
+                age = binding.dfAgeEt.text.toString().toIntOrNull(),
+                breed = binding.dfBreedEt.text.toString()
+            )
+
+            binding.errorMessage.text = errorMessage
+
+            if (errorMessage == "") {
                 if (isAddDog) {
-                    listener?.save(
-                            binding.dfNameEt.text.toString(),
-                            binding.dfAgeEt.text.toString().toInt(),
-                            binding.dfBreedEt.text.toString()
-                    )
+                    saveDog()
                     dismiss()
                 } else {
-                    if (dog != null)
-                        listener?.update(
-                                Dog(
-                                        id = dog.id,
-                                        binding.dfNameEt.text.toString(),
-                                        binding.dfAgeEt.text.toString().toInt(),
-                                        binding.dfBreedEt.text.toString()
-                                )
-                        )
+                    updateDog()
                     dismiss()
                 }
             }
@@ -77,33 +67,32 @@ class AddDogDialogFragment(
         return builder.create()
     }
 
-    private fun checkSetErrorMessages(): Boolean {
-        var result = false
-        val errorList = mutableListOf<String>()
-        val name = binding.dfNameEt.text.toString()
-        val age = binding.dfAgeEt.text.toString().toIntOrNull()
-        val breed = binding.dfBreedEt.text.toString()
+    private fun saveDog() {
+        listener?.save(
+            binding.dfNameEt.text.toString(),
+            binding.dfAgeEt.text.toString().toInt(),
+            binding.dfBreedEt.text.toString()
+        )
+    }
 
-        if (name == "") {
-            errorList.add("name is empty")
-        }
-        if (age != null) {
-            if (age > 32) {
-                errorList.add("age more than 32")
-            }
-        } else {
-            errorList.add("age is empty")
-        }
-        if (breed == "") {
-            errorList.add("breed is empty")
-        }
-        if (errorList.isNotEmpty()) {
+    private fun updateDog() {
+        if (dog != null)
+            listener?.update(
+                Dog(
+                    id = dog.id,
+                    binding.dfNameEt.text.toString(),
+                    binding.dfAgeEt.text.toString().toInt(),
+                    binding.dfBreedEt.text.toString()
+                )
+            )
+    }
 
-            binding.errorMessage.text = errorList.joinToString(separator = ", ")
-        } else {
-            result = true
+    private fun setDogFieldsInEditText() {
+        if (dog != null) {
+            binding.dfNameEt.setText(dog.name)
+            binding.dfAgeEt.setText(dog.age.toString())
+            binding.dfBreedEt.setText(dog.breed)
         }
-        return result
     }
 
     override fun onDestroyView() {
