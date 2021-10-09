@@ -43,9 +43,10 @@ class FilterDialogFragment: DialogFragment() {
         return builder.create()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
+
     }
 
     companion object {

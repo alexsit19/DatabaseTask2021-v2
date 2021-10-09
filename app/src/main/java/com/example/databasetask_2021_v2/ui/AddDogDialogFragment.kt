@@ -110,8 +110,8 @@ class AddDogDialogFragment(
         return result
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
         Log.d("DEBUG", "ON DESTROY")
     }
