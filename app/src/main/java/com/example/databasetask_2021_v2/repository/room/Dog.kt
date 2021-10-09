@@ -1,6 +1,5 @@
 package com.example.databasetask_2021_v2.repository.room
 
-
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 

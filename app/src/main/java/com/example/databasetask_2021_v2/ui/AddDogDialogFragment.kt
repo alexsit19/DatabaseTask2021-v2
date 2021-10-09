@@ -14,7 +14,7 @@ import com.example.databasetask_2021_v2.repository.room.Dog
 class AddDogDialogFragment(
     private val isAddDog: Boolean,
     private val dog: Dog? = null
-    ): DialogFragment() {
+) : DialogFragment() {
 
     private var _binding: DialogFragmentAddDogBinding? = null
     private val binding get() = requireNotNull(_binding)
@@ -33,14 +33,13 @@ class AddDogDialogFragment(
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         _binding = DialogFragmentAddDogBinding.inflate(LayoutInflater.from(context))
         val builder = AlertDialog.Builder(requireContext())
-            .setView(binding.root)
+                .setView(binding.root)
 
-        if(isAddDog) {
+        if (isAddDog) {
             binding.title.text = getString(R.string.add_dog_title)
-
         } else {
             binding.title.text = getString(R.string.update_dog_title)
-            if(dog != null) {
+            if (dog != null) {
                 binding.dfNameEt.setText(dog.name)
                 binding.dfAgeEt.setText(dog.age.toString())
                 binding.dfBreedEt.setText(dog.breed)
@@ -51,21 +50,21 @@ class AddDogDialogFragment(
             if (checkSetErrorMessages()) {
                 if (isAddDog) {
                     listener?.save(
-                        binding.dfNameEt.text.toString(),
-                        binding.dfAgeEt.text.toString().toInt(),
-                        binding.dfBreedEt.text.toString()
-                    )
-                    dismiss()
-                } else {
-                    if(dog != null)
-                    listener?.update(
-                        Dog(
-                            id = dog.id,
                             binding.dfNameEt.text.toString(),
                             binding.dfAgeEt.text.toString().toInt(),
                             binding.dfBreedEt.text.toString()
-                        )
                     )
+                    dismiss()
+                } else {
+                    if (dog != null)
+                        listener?.update(
+                                Dog(
+                                        id = dog.id,
+                                        binding.dfNameEt.text.toString(),
+                                        binding.dfAgeEt.text.toString().toInt(),
+                                        binding.dfBreedEt.text.toString()
+                                )
+                        )
                     dismiss()
                 }
             }
@@ -73,7 +72,6 @@ class AddDogDialogFragment(
 
         binding.dfCancelBtn.setOnClickListener {
             dismiss()
-
         }
 
         return builder.create()
@@ -93,7 +91,6 @@ class AddDogDialogFragment(
             if (age > 32) {
                 errorList.add("age more than 32")
             }
-
         } else {
             errorList.add("age is empty")
         }
@@ -103,7 +100,6 @@ class AddDogDialogFragment(
         if (errorList.isNotEmpty()) {
 
             binding.errorMessage.text = errorList.joinToString(separator = ", ")
-
         } else {
             result = true
         }

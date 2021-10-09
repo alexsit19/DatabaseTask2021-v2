@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.callbackFlow
 
 typealias DogListener = (List<Dog>) -> Unit
 
-class DogRepository(private val dogsDao: DogsDao): DogsDao by dogsDao {
+class DogRepository(private val dogsDao: DogsDao) : DogsDao by dogsDao {
 
     val listeners = mutableSetOf<Dog>()
 
@@ -24,15 +24,11 @@ class DogRepository(private val dogsDao: DogsDao): DogsDao by dogsDao {
 
     override suspend fun update(dog: Dog) = dogsDao.update(dog)
 
-
     fun listenDbUpdates(): Flow<List<Dog>> = callbackFlow {
         val listener: DogListener = {
             trySend(it)
         }
         awaitClose {
-
         }
     }.buffer(Channel.CONFLATED)
-
-
 }

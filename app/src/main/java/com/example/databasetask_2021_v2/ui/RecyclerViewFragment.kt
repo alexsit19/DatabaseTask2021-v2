@@ -8,22 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-//import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.databasetask_2021_v2.DogApplication
 import com.example.databasetask_2021_v2.databinding.RecyclerviewFragmentBinding
 import com.example.databasetask_2021_v2.repository.room.Dog
 import com.example.databasetask_2021_v2.ui.adapter.DogListAdapter
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
-
-class RecyclerViewFragment: Fragment(), DogItemListener {
+class RecyclerViewFragment : Fragment(), DogItemListener {
 
     private var adapter: DogListAdapter? = null
     private var _binding: RecyclerviewFragmentBinding? = null
@@ -48,7 +42,6 @@ class RecyclerViewFragment: Fragment(), DogItemListener {
         val preference = PreferenceManager.getDefaultSharedPreferences(requireActivity())
         val settingsString = preference.getString("list", "")
         Log.d("DEBUG", "FROM FRAGMENT $settingsString")
-        //dogsViewModel.changeIsRoom(settingsString)
 
         adapter = DogListAdapter(this)
 
@@ -56,12 +49,12 @@ class RecyclerViewFragment: Fragment(), DogItemListener {
         binding.recycler.adapter = adapter
 
         dogsViewModel.dogs.onEach(::renderDogs).launchIn(lifecycleScope)
-
     }
 
     private fun renderDogs(dogs: List<Dog>) {
         adapter?.submitList(dogs)
     }
+
     override fun onDestroy() {
         _binding = null
         super.onDestroy()

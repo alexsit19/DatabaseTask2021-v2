@@ -1,15 +1,21 @@
 package com.example.databasetask_2021_v2
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
-import androidx.preference.PreferenceManager
+import androidx.appcompat.app.AppCompatActivity
 import com.example.databasetask_2021_v2.databinding.ActivityMainBinding
 import com.example.databasetask_2021_v2.repository.room.Dog
-import com.example.databasetask_2021_v2.ui.*
+import com.example.databasetask_2021_v2.ui.DialogListener
+import com.example.databasetask_2021_v2.ui.FilterListener
+import com.example.databasetask_2021_v2.ui.DogViewModel
+import com.example.databasetask_2021_v2.ui.DogViewModelFactory
+import com.example.databasetask_2021_v2.ui.AddDogDialogFragment
+import com.example.databasetask_2021_v2.ui.FilterDialogFragment
+import com.example.databasetask_2021_v2.ui.SettingsFragment
+import com.example.databasetask_2021_v2.ui.RecyclerViewFragment
 
 class MainActivity : AppCompatActivity(), DialogListener, FilterListener {
 
@@ -36,7 +42,6 @@ class MainActivity : AppCompatActivity(), DialogListener, FilterListener {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         return super.onCreateOptionsMenu(menu)
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -65,23 +70,23 @@ class MainActivity : AppCompatActivity(), DialogListener, FilterListener {
 
     private fun startSettingsFragment() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.place_for_fragments, SettingsFragment(), "settings")
-            .commit()
+                .replace(R.id.place_for_fragments, SettingsFragment(), "settings")
+                .commit()
     }
 
     private fun moveSettingsFragment() {
         supportFragmentManager.findFragmentByTag("settings")?.let {
             supportFragmentManager.beginTransaction()
-                .remove(it)
-                .commit()
+                    .remove(it)
+                    .commit()
         }
         startRecyclerViewFragment()
     }
 
     private fun startRecyclerViewFragment() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.place_for_fragments, RecyclerViewFragment(), "")
-            .commit()
+                .replace(R.id.place_for_fragments, RecyclerViewFragment(), "")
+                .commit()
     }
 
     override fun save(name: String, age: Int, breed: String) {

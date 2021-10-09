@@ -1,14 +1,18 @@
 package com.example.databasetask_2021_v2.repository.room
 
-import androidx.core.app.RemoteInput
-import androidx.room.*
+import androidx.room.Query
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Delete
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DogsDao {
 
     @Query("SELECT * FROM dogs ORDER BY " +
-    "(CASE " +
+            "(CASE " +
             "WHEN :sortBy='id' THEN id " +
             "WHEN :sortBy='name' THEN name " +
             "WHEN :sortBy='age' THEN age " +
@@ -28,5 +32,4 @@ interface DogsDao {
 
     @Update
     suspend fun update(dog: Dog)
-
 }

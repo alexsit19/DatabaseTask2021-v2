@@ -12,7 +12,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -20,6 +19,5 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireActivity())
         val listPref = findPreference<ListPreference>("list")
         Log.d("DEBUG", "Prefs: ${listPref?.value}")
-
     }
 }

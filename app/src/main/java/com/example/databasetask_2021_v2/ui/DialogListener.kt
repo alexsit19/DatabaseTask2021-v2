@@ -7,5 +7,4 @@ interface DialogListener {
     fun save(name: String, age: Int, breed: String)
 
     fun update(dog: Dog)
-
 }

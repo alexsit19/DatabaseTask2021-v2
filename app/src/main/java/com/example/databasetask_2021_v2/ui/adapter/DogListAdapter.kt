@@ -11,11 +11,11 @@ import com.example.databasetask_2021_v2.ui.DogViewHolder
 
 class DogListAdapter(
     private val listener: DogItemListener
-    ) : ListAdapter<Dog, DogViewHolder>(DogsComparator()) {
+) : ListAdapter<Dog, DogViewHolder>(DogsComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DogViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = DogCardBinding.inflate(layoutInflater, parent,false)
+        val binding = DogCardBinding.inflate(layoutInflater, parent, false)
         return DogViewHolder(binding, listener, parent.context)
     }
 
@@ -25,7 +25,7 @@ class DogListAdapter(
     }
 }
 
-class DogsComparator: DiffUtil.ItemCallback<Dog>() {
+class DogsComparator : DiffUtil.ItemCallback<Dog>() {
     override fun areItemsTheSame(oldItem: Dog, newItem: Dog): Boolean {
         return oldItem.id == newItem.id
     }

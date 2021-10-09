@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import androidx.fragment.app.DialogFragment
 import com.example.databasetask_2021_v2.databinding.FilterBinding
 
-class FilterDialogFragment: DialogFragment() {
+class FilterDialogFragment : DialogFragment() {
     private var _binding: FilterBinding? = null
     private val binding get() = requireNotNull(_binding)
     private var listener: FilterListener? = null
@@ -37,7 +37,6 @@ class FilterDialogFragment: DialogFragment() {
                 binding.sortByBreed.id -> listener?.getDataSortBy("breed")
             }
             dismiss()
-
         }
 
         return builder.create()
@@ -46,11 +45,9 @@ class FilterDialogFragment: DialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-
     }
 
     companion object {
         const val TAG = "FilterDialogFragment"
     }
-
 }

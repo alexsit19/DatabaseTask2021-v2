@@ -2,14 +2,18 @@ package com.example.databasetask_2021_v2.repository.sqlopenhelper
 
 import android.content.Context
 import android.util.Log
-import com.example.databasetask_2021_v2.repository.*
+import com.example.databasetask_2021_v2.repository.DB_TABLE_NAME
+import com.example.databasetask_2021_v2.repository.ID_COLUMN
+import com.example.databasetask_2021_v2.repository.NAME_COLUMN
+import com.example.databasetask_2021_v2.repository.AGE_COLUMN
+import com.example.databasetask_2021_v2.repository.BREED_COLUMN
 import com.example.databasetask_2021_v2.repository.room.Dog
 import com.example.databasetask_2021_v2.repository.room.DogsDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flow
 
-class DogDatabaseHandler(private val context: Context): DogsDao {
+class DogDatabaseHandler(private val context: Context) : DogsDao {
 
     private val dogDbHelper = DogDbHelper(context)
 
@@ -57,11 +61,9 @@ class DogDatabaseHandler(private val context: Context): DogsDao {
     }
 
     override suspend fun delete(dog: Dog) {
-
     }
 
     override suspend fun update(dog: Dog) {
-
     }
 
     companion object {

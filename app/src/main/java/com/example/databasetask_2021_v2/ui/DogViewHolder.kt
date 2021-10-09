@@ -9,7 +9,7 @@ class DogViewHolder(
     private val binding: DogCardBinding,
     private val listener: DogItemListener,
     private val context: Context
-    ): RecyclerView.ViewHolder(binding.root) {
+) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(dog: Dog) {
         binding.apply {
