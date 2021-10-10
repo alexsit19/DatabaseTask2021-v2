@@ -7,7 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import com.example.databasetask_2021_v2.BusinessLogic.AddDialogFragmentLogic
+import com.example.databasetask_2021_v2.business_logic.AddDialogFragmentLogic
 import com.example.databasetask_2021_v2.databinding.DialogFragmentAddDogBinding
 import com.example.databasetask_2021_v2.repository.room.Dog
 

@@ -12,7 +12,7 @@ class DogViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(dog: Dog) {
-        binding.apply {
+        with(binding) {
             nameContent.text = dog.name
             ageContent.text = dog.age.toString()
             breedContent.text = dog.breed
