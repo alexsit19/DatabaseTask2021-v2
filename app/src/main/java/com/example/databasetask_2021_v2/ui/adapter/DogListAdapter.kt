@@ -16,7 +16,7 @@ class DogListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DogViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = DogCardBinding.inflate(layoutInflater, parent, false)
-        return DogViewHolder(binding, listener, parent.context)
+        return DogViewHolder(binding, listener)
     }
 
     override fun onBindViewHolder(holder: DogViewHolder, position: Int) {
