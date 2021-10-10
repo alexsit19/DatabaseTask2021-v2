@@ -7,8 +7,7 @@ import com.example.databasetask_2021_v2.repository.room.Dog
 
 class DogViewHolder(
     private val binding: DogCardBinding,
-    private val listener: DogItemListener,
-    private val context: Context
+    private val listener: DogItemListener
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(dog: Dog) {

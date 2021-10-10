@@ -13,16 +13,16 @@ import kotlinx.coroutines.launch
 
 class DogViewModel(private var _repository: DogRepository) : ViewModel() {
 
-    private val sortbyFlow = MutableStateFlow("age")
+    private val sortByFlow = MutableStateFlow("age")
     val repository get() = _repository
 
-    val _dogs = sortbyFlow.flatMapLatest {
+    private val _dogs = sortByFlow.flatMapLatest {
         repository.getAll(it)
     }
     val dogs get() = _dogs
 
-    fun getAllSortBy(sortBy: String) {
-        this.sortbyFlow.value = sortBy
+    private fun getAllSortBy(sortBy: String) {
+        this.sortByFlow.value = sortBy
     }
 
     fun insert(name: String, age: Int, breed: String) {
@@ -40,7 +40,7 @@ class DogViewModel(private var _repository: DogRepository) : ViewModel() {
 
     fun getDataSortedBy(sortBy: String) {
         getAllSortBy(sortBy)
-        this.sortbyFlow.value = sortBy
+        this.sortByFlow.value = sortBy
     }
 
     private fun <T> Flow<T>.asLiveDataFlow() =
